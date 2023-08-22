@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #444;
+}
+
+div {
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.previous {
+    text-decoration: line-through;
+    color: red;
+    margin-right: 10px;
+}
+
+.prevcurren {
+    text-align: center;
+}

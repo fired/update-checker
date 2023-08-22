@@ -1,0 +1,78 @@
+{
+  "https://httpd.apache.org/": {
+    "current": "2.4.57",
+    "prev": "2.4.56"
+  },
+  "https://tomcat.apache.org/": {
+    "current": "10.1.12",
+    "prev": "10.1.11"
+  },
+  "https://learn.microsoft.com/en-us/azure/active-directory/hybrid/connect/reference-connect-version-history": {
+    "current": "2.2.1.0",
+    "prev": "2.1.20.0"
+  },
+  "https://www.isc.org/bind/": {
+    "current": "9.18.18",
+    "prev": "9.16.43"
+  },
+  "https://bitwarden.com/help/releasenotes": {
+    "current": "2023.8.0",
+    "prev": "2023.7.1"
+  },
+  "https://www.cacti.net/": {
+    "current": "1.2.24",
+    "prev": "1.2.23"
+  },
+  "https://chrony-project.org/documentation.html": {
+    "current": "chrony 4.3",
+    "prev": "chrony 4.2"
+  },
+  "https://freeradius.org/release_notes/": {
+    "current": "3.2.3",
+    "prev": "3.2.2"
+  },
+  "https://www.synology.com/en-us/releaseNote/GlacierBackup?model=DS115j": {
+    "current": "1.5.1-1133",
+    "prev": "1.5.0-1109"
+  },
+  "https://github.com/GAM-team/GAM/releases": {
+    "current": "GAM 6.58",
+    "prev": "GAM 6.57"
+  },
+  "https://support.google.com/a/answer/3294747?hl=en": {
+    "current": "Release notes for 1.8.17",
+    "prev": "Release notes for 1.8.13"
+  },
+  "https://support.google.com/a/answer/1263028?hl=en": {
+    "current": "Release notes for 5.0.22",
+    "prev": "Release notes for 5.0.20"
+  },
+  "https://learn.jamf.com/bundle/jamf-pro-release-notes-current/page/New_Features_and_Enhancements.html": {
+    "current": "10.49.0",
+    "prev": "10.49.0"
+  },
+  "https://docs.katalon.com/docs/plugins-and-add-ons/katalon-recorder-extension/get-started/release-notes": {
+    "current": "5.9.0​",
+    "prev": "5.8.3​"
+  },
+  "https://mariadb.com/kb/en/release-notes/": {
+    "current": "MariaDB 11.2.1",
+    "prev": "MariaDB 11.2.0"
+  },
+  "https://www.wolfram.com/mathematica/quick-revision-history/": {
+    "current": "Mathematica 13.3.1",
+    "prev": "Mathematica 13.3.0"
+  },
+  "https://learn.microsoft.com/en-us/officeupdates/update-history-microsoft365-apps-by-date": {
+    "current": "2307",
+    "prev": "2307"
+  },
+  "https://dev.mysql.com/doc/relnotes/mysql/8.0/en/": {
+    "current": "MySQL 8.0.35",
+    "prev": "MySQL 8.0.34"
+  },
+  "https://www.postfix.org/announcements.html": {
+    "current": "3.8.1",
+    "prev": "3.8.0"
+  }
+}
