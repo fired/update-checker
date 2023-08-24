@@ -203,7 +203,11 @@ const scrapeFreeRADIUS = async () => {
     const versionRegex = /(\d+\.\d+\.\d+)/;
 
     try {
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser',
+            headless: "new",
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
 
@@ -306,7 +310,11 @@ const scrapeJAMF = async () => {
 
     let browser;
     try {
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser',
+            headless: "new",
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
         const page = await browser.newPage();
         
         await page.goto(url, {
@@ -404,28 +412,39 @@ const scrapeMicrosoft365 = async () => {
 
 const scrapeMySQL = async () => {
     const url = 'https://dev.mysql.com/doc/relnotes/mysql/8.0/en/';
+    
+    const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/chromium-browser',
+        headless: "new",
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    const page = await browser.newPage();
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36');
+    await page.goto(url);
 
-    try {
-        const { data } = await axios.get(url);
-        const $ = cheerio.load(data);
+    const versionText = await page.evaluate(() => {
+        // Using the DOM to replicate the functionality you provided with Cheerio
+        const listItems = Array.from(document.querySelectorAll('nav.doctoc li'));
 
-        // Get the first list item that contains "General Availability" in its text
-        const listItem = $('nav.doctoc li').filter((index, element) => {
-            return $(element).text().includes('General Availability');
-        }).first();
+        for (const item of listItems) {
+            const text = item.textContent;
 
-        // Extract the version from the list item text
-        let versionText = listItem.text().trim();
+            if (text.includes('General Availability') && !text.includes('Not yet released')) {
+                // Extract the version from the list item text
+                let versionText = text.trim();
 
-        // Remove "Changes in" and everything from the comma onward
-        versionText = versionText.replace('Changes in ', '').split(' (')[0];
+                // Remove "Changes in" and everything from the comma onward
+                versionText = versionText.replace('Changes in ', '').split(' (')[0];
 
-        return versionText || "Version not found";
-        
-    } catch (error) {
-        console.error(`Error scraping ${url}: `, error.message);
-        return "Error fetching version";
-    }
+                return versionText;
+            }
+        }
+
+        return "Version not found";
+    });
+
+    await browser.close();
+    return versionText;
 };
 
 const scrapePostfix = async () => {
@@ -449,6 +468,31 @@ const scrapePostfix = async () => {
         console.error(`Error scraping ${url}: `, error.message);
         return "Error fetching version";
     }
+};
+
+const performScrapingTask = async () => {
+    updateVersion('https://tomcat.apache.org/', await scrapeTomcat());
+    updateVersion('https://httpd.apache.org/',  await scrapeHttpd());
+    updateVersion('https://learn.microsoft.com/en-us/azure/active-directory/hybrid/connect/reference-connect-version-history', await scrapeAzureADConnect());
+    updateVersion('https://www.isc.org/bind/', await scrapeBind());
+    updateVersion('https://bitwarden.com/help/releasenotes', await scrapeBitwarden());
+    updateVersion('https://www.cacti.net/', await scrapeCacti());
+    updateVersion('https://chrony-project.org/documentation.html', await scrapeChrony());
+    updateVersion('https://freeradius.org/release_notes/', await scrapeFreeRADIUS());
+    updateVersion('https://www.synology.com/en-us/releaseNote/GlacierBackup?model=DS115j', await scrapeGlacier());
+    updateVersion('https://github.com/GAM-team/GAM/releases', await scrapeGAM());
+    updateVersion('https://support.google.com/a/answer/3294747?hl=en', await scrapeGAPS());
+    updateVersion('https://support.google.com/a/answer/1263028?hl=en', await scrapeGCDS());
+    updateVersion('https://learn.jamf.com/bundle/jamf-pro-release-notes-current/page/New_Features_and_Enhancements.html', await scrapeJAMF());
+    updateVersion('https://docs.katalon.com/docs/plugins-and-add-ons/katalon-recorder-extension/get-started/release-notes', await scrapeKatalon());
+    updateVersion('https://mariadb.com/kb/en/release-notes/', await scrapeMARIADB());
+    updateVersion('https://www.wolfram.com/mathematica/quick-revision-history/', await scrapeMathematica());
+    updateVersion('https://learn.microsoft.com/en-us/officeupdates/update-history-microsoft365-apps-by-date', await scrapeMicrosoft365());
+    updateVersion('https://dev.mysql.com/doc/relnotes/mysql/8.0/en/', await scrapeMySQL());
+    updateVersion('https://www.postfix.org/announcements.html', await scrapePostfix());
+
+    console.log(`Updated versions:`, websiteVersions);
+    saveVersionsToFile(websiteVersions);
 };
 
 // Scheduled task to update versions every 5 seconds (for testing)
@@ -479,6 +523,11 @@ cron.schedule('0 0,12 * * *', async () => {
 
 app.get('/versions', (req, res) => {
     res.json(websiteVersions);
+});
+
+app.get('/SOMETHING', async (req, res) => {
+    await performScrapingTask();
+    res.send('Scraping task triggered successfully!');
 });
 
 app.listen(port, () => {
