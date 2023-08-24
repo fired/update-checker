@@ -43,8 +43,8 @@ The application currently supports checking updates for the following software:
 - MySQL
 - Postfix
 
-## Screenshots
-![page](https://www.thenameisblondy.com/u/WgGONP.png)
+## Screenshot
+![page](https://www.thenameisblondy.com/u/IMQcw7.png)
 
 ## Contributing
 
