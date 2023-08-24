@@ -43,6 +43,9 @@ The application currently supports checking updates for the following software:
 - MySQL
 - Postfix
 
+## Screenshots
+![page](https://www.thenameisblondy.com/u/WgGONP.png)
+
 ## Contributing
 
 Feel free to contribute by adding more scraping functions or improving the existing ones. Ensure to follow the coding standards and add comments where necessary
