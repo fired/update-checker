@@ -44,7 +44,7 @@ The application currently supports checking updates for the following software:
 - Postfix
 
 ## Screenshot
-![page](https://www.thenameisblondy.com/u/IMQcw7.png)
+![page](https://www.thenameisblondy.com/u/9fxDYp.png)
 
 ## Contributing
 
